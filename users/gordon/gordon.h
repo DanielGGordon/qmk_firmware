@@ -9,6 +9,7 @@
 #define _______ KC_TRNS
 #define ________ KC_TRNS
 #define _________ KC_TRNS
+#define _XXXXXX_ KC_TRNS
 #define XXXXXXX KC_NO
 
 // KC codes that are too long
@@ -53,6 +54,9 @@
 #define COL_MOUS LT(_MOUSE,KC_SCOLON)
 #define SPAC_SYM LT(_SYMBOLS,KC_SPACE)
 
+#define APP_SW_I LT(_APPSWITCH,KC_I)
+
+
 // Double Modifier ONLY hold
 #define ALT_SHFT LSFT(KC_LALT)
 #define CTR_SHFT LSFT(KC_LCTL)
@@ -91,7 +95,8 @@ enum gordon_layers
   _NAV,
   _MACROS,
   _FUNCTION,
-  _TEXTNAV
+  _TEXTNAV,
+  _APPSWITCH
 };
 
 

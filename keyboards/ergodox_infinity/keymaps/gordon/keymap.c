@@ -87,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //**************************FIRST LAYER - LAYER ZERO ************************************** 
   [_QWERTY] = KEYMAP(
 
-    SHF6_AF7,   F1_F13,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
-    ________,     KC_Q,  CTR_SH_W,     NAV_E, CTR_AL_R,      KC_T, PRINTSCR,
-      KC_TAB,     KC_A,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
-    ALT_SHFT,   CTRL_Z,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, TT(_MOUSE),
+    SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
+    KC_ESC  , KC_Q    ,  CTR_SH_W,     NAV_E, CTR_AL_R,      KC_T, PRINTSCR,
+    KC_TAB  , KC_A    ,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
+    ALT_SHFT, CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, TT(_MOUSE),
     KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
                                     
                                               KC_INSERT,  KC_DELETE, 
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     KC_LSHIFT, SYMB_BSP,    END_ESC,
 
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
-                ________,     KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,  ________,
+                ________,     KC_Y,     KC_U, APP_SW_I,     KC_O,      KC_P,  ________,
                              WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS,  ________,
                  KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TD(TABCOMBO),
                                        KC_UP,  KC_DOWN,   KC_ESC,    KC_TILD,    KC_UNDS,
@@ -198,6 +198,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        ________,________,
                                        ________,
                                        ________,________,KC_0),
+
+  [_APPSWITCH] = KEYMAP(________,________,________,________,________,________,________,
+                     ________,________,________,________,________,________,________,
+                     ________,________,LCTL(LGUI(KC_6)),LCTL(LGUI(KC_7)),LCTL(LGUI(KC_8)),________,
+                     ________,________,________,________,________,________,________,
+                     ________,________,________,________,________,
+                     
+                                                                  ________,________,
+                                                                           ________,
+                                                         ________,________,________,
+                     
+                     ________,________,________,________,________,________,________,
+                     ________,________,LCTL(LGUI(KC_3)),_XXXXXX_,LCTL(LGUI(KC_4)),LCTL(LGUI(KC_5)),________,
+                              ________,LCTL(LGUI(KC_1)),________,LCTL(LGUI(KC_2)),________,________,
+                     ________,________,________,________,________,________,________,
+                                       ________,________,________,________,________,
+                                       
+                    ________,________,
+                    ________,
+                    ________,________,________),                                     
   //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
   [_TEXTNAV] = KEYMAP(________,________,________,________,________,________,________,
                       ________,MEH(KC_Q),LSFT(KC_ESCAPE),MEH(KC_D),MEH(KC_2),LALT(LSFT(KC_UP)),________,
@@ -308,6 +328,14 @@ void matrix_scan_user(void) {
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
+        case _APPSWITCH:
+            ergodox_right_led_1_on();
+            ergodox_right_led_1_on();
+            // _delay_ms(45);
+            ergodox_right_led_3_on();
+            // _delay_ms(45);
+            break;
+            
         default:
             break;
     }
