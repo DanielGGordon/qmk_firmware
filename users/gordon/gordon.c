@@ -1,7 +1,9 @@
 #include "gordon.h"
 #include "quantum.h"
 #include "action.h"
+#include "visualizer.h"
 #include "process_keycode/process_tap_dance.h"
+
 
 #if (__has_include("secret.h"))
 #include "secret.h"
@@ -15,31 +17,6 @@ const char secret[][64] = {
 };
 #endif
 
-
-
-
-void register_hyper (void) { //Helper function to invoke Hyper
-  register_code (KC_LSFT);
-  register_code (KC_LCTL); 
-  register_code (KC_LALT); 
-  register_code (KC_LGUI); 
-}
-void unregister_hyper (void) { //Helper function to invoke Hyper
-  unregister_code (KC_LSFT);
-  unregister_code (KC_LCTL); 
-  unregister_code (KC_LALT); 
-  unregister_code (KC_LGUI); 
-}
-
-void register_ctrl_a (void) {
-  register_code(KC_LCTL);
-  register_code(KC_A);
-}
-
-void unregister_ctrl_a (void) {
-  unregister_code(KC_LCTL);
-  unregister_code(KC_A);
-}
 
 void register_alt_f7 (void) { 
   register_code (KC_LALT); 
@@ -80,6 +57,27 @@ void unregister_alt_shift (void) {
   unregister_code (KC_LSFT); 
   unregister_code (KC_LALT);
 }
+
+// Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // simple tap dance
+  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),  
+  [REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
+  [ENDESC] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
+  [END_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME),
+  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
+  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
+  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
+  [F1F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
+  [F2F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
+  [F5F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
+  [TABCOMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
+  [F3D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bt_finished, bt_reset),
+  [COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
+  [HTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,h_finished, h_reset)
+};
+
+
 
 // To activate SINGLE_HOLD, you will need to hold for 200ms first. 
 // This tap dance favors keys that are used frequently in typing like 'f'

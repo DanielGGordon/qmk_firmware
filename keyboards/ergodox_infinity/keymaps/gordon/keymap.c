@@ -10,15 +10,8 @@
 #include "keymap_nordic.h"
 
 
+
 #define TLSLSH   M(TIL_SLASH)
-#define F1_F13   TD(F1F13)
-#define F2_F14   TD(F2F14)
-#define F5_F15   TD(F5F15)
-#define F4_ALTF4 TD(ALTF4)
-#define END_ESC  TD(ENDESC)
-#define SHF6_AF7 TD(F6F7)
-#define F12_RUN  TD(F12ETAPS)
-#define COMMA_TD TD(COMMA)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -27,28 +20,7 @@ enum custom_keycodes {
   RGB_SLD,
 };
 
-//Tap dance enums
-enum {
-  F12TAP = 0,
-  F12ETAPS,
-  CALCCOMP,
-  REFRESH, //send R, or Control+R if double tapped.
-  ENDESC,
-  XESC, //'quad function'. x, control, escape, alt
-  ALY2, //'quad function': a, Hyper, ctrl+a, layer 2
-  PRLOCK,
-  F6F7, // Shift F6 or Alt F7
-  TABCOMBO,
-  FCTRL,
-  F3D,
-  ALTF4,
-  COMMA,
-  AT,
-  HTAB,
-  F1F13,
-  F2F14,
-  F5F15
-};
+
 
 
 
@@ -63,23 +35,7 @@ enum {
 } */
 
             
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // simple tap dance
-  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),  
-  [REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
-  [ENDESC] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
-  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
-  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
-  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
-  [F1F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
-  [F2F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
-  [F5F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
-  [TABCOMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
-  [F3D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bt_finished, bt_reset),
-  [COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
-  [HTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,h_finished, h_reset)
-};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -95,13 +51,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     
                                               KC_INSERT,  KC_DELETE, 
                                                            ALT_HOME,
-                                    KC_LSHIFT, SYMB_BSP,    END_ESC,
+                                    KC_LSHIFT, SYMB_BSP,    KC_ESC ,
 
-                 F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
-                ________,     KC_Y,     KC_U, APP_SW_I,     KC_O,      KC_P,  ________,
-                             WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS,  ________,
-                 KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TD(TABCOMBO),
-                                       KC_UP,  KC_DOWN,   KC_ESC,    KC_TILD,    KC_UNDS,
+                 F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, CALC_COM,
+                ________,     KC_Y,     KC_U, APP_SW_I,     KC_O,      KC_P, ________,
+                             WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS, END_HOME,
+                 KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, ________,
+                                       KC_UP,  KC_DOWN,   KC_ESC,    KC_TILD, KC_UNDS,
 
   KC_ESCAPE,  KC_DELETE,
          ALT_T(KC_PGUP),
@@ -111,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************SYMBOLS LAYER**************************
   [_SYMBOLS] = KEYMAP(
     ________, ________, ________, ________, ________, ________,  ________,
-    ________,   TLSLSH,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
+    ________, TIL_SLSH,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
     ________,  KC_EXLM,  KC_PIPE,  KC_LPRN,  KC_RPRN, M(DEREF),
     ________,KC_DOLLAR,  KC_PERC, LSQUIGLY, RSQUIGLY, ________,  ________,
     ________,  M(TICK3),  ________,  ________,  ________,  
@@ -159,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = KEYMAP(________,________,________,________,________,________,________,
                   ________,________,SNAPLEFT,________,SNAPRGHT,LALT(KC_LEFT),________,
                   ________,LCTL(KC_W),PREVTAB,LGUI(KC_D),NEXTTAB,________,
-                  ________,________,WORKLEFT,________,WORKRIGHT,________,________,
+                  ________,SNAPUP    ,WORKLEFT,________,WORKRIGHT,________,________,
                   ________,________,________,________,________,
                   
                   ________,________,
@@ -203,15 +159,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      ________,________,________,________,________,________,________,
                      ________,________,LCTL(LGUI(KC_6)),LCTL(LGUI(KC_7)),LCTL(LGUI(KC_8)),________,
                      ________,________,________,________,________,________,________,
-                     ________,________,________,________,________,
+                     ________,APP_1   ,APP_2   , APP_3  ,APP_4   ,
                      
                                                                   ________,________,
                                                                            ________,
-                                                         ________,________,________,
+                                                         APP_1   ,APP_2   ,_XXXXXX_,
                      
                      ________,________,________,________,________,________,________,
-                     ________,________,LCTL(LGUI(KC_3)),_XXXXXX_,LCTL(LGUI(KC_4)),LCTL(LGUI(KC_5)),________,
-                              ________,LCTL(LGUI(KC_1)),________,LCTL(LGUI(KC_2)),________,________,
+                     ________,________, APP_3  ,_XXXXXX_, APP_4  , APP_5  ,________,
+                              ________, APP_1  ,________, APP_2  ,________,________,
                      ________,________,________,________,________,________,________,
                                        ________,________,________,________,________,
                                        
@@ -259,32 +215,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
           break;
         }
-
-        case TICK3: {
-          if (record->event.pressed) {
-            SEND_STRING ("```");
-          }
-          break;
-        }
-
-        case TILD3: {
-          if (record->event.pressed) {
-            SEND_STRING ("~~~");
-          }
-          break;
-        }
-
-        case ALTTAB_START: {
-          register_code(KC_LALT);
-          layer_on(8);
-        }
-
-        case ALTTAB_END: {
-          unregister_code(KC_LALT);
-          layer_off(8);
-        }
-
-
 
       }
       return MACRO_NONE;
