@@ -31,6 +31,15 @@
 #define WORKRIGHT LCTL(LGUI(KC_RIGHT))
 #define WORKLEFT  LCTL(LGUI(KC_LEFT))
 
+#define APP_1     LCTL(LGUI(KC_1)) 
+#define APP_2     LCTL(LGUI(KC_2)) 
+#define APP_3     LCTL(LGUI(KC_3)) 
+#define APP_4     LCTL(LGUI(KC_4)) 
+#define APP_5     LCTL(LGUI(KC_5)) 
+#define APP_6     LCTL(LGUI(KC_6)) 
+#define APP_7     LCTL(LGUI(KC_7)) 
+#define APP_8     LCTL(LGUI(KC_8)) 
+
 // KC/modifier hold
 #define CTRL_F   CTL_T(KC_F)
 #define CTRL_J   CTL_T(KC_J)
@@ -85,6 +94,53 @@ enum {
   TRIPLE_TAP = 6,
   TRIPLE_HOLD = 7
 };
+
+//Tap dance enums 
+enum { 
+  F12TAP = 0, 
+  F12ETAPS, 
+  CALCCOMP, 
+  REFRESH, //send R, or Control+R if double tapped. 
+  ENDESC, 
+  XESC, //'quad function'. x, control, escape, alt 
+  ALY2, //'quad function': a, Hyper, ctrl+a, layer 2 
+  PRLOCK, 
+  F6F7, // Shift F6 or Alt F7 
+  TABCOMBO, 
+  FCTRL, 
+  F3D, 
+  ALTF4, 
+  COMMA, 
+  AT, 
+  HTAB, 
+  F1F13, 
+  F2F14, 
+  F5F15 
+}; 
+
+#ifdef TAP_DANCE_ENABLE 
+#define F1_F13   TD(F1F13) 
+#define F2_F14   TD(F2F14) 
+#define F5_F15   TD(F5F15) 
+#define F4_ALTF4 TD(ALTF4) 
+#define END_ESC  TD(ENDESC) 
+#define END_HOME TD(END_HOME) 
+#define SHF6_AF7 TD(F6F7) 
+#define F12_RUN  TD(F12ETAPS) 
+#define COMMA_TD TD(COMMA) 
+#define CALC_COM TD(CALCCOMP) 
+#else //just to make things compile 
+#define F1_F13   KC_1 
+#define F2_F14   KC_1 
+#define F5_F15   KC_1 
+#define F4_ALTF4 KC_1 
+#define END_ESC  KC_1 
+#define END_HOME KC_1 
+#define SHF6_AF7 KC_1 
+#define F12_RUN  KC_1 
+#define COMMA_TD KC_1 
+#define CALC_COM KC_1 
+#endif 
 
 enum gordon_layers
 {

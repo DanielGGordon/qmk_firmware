@@ -11,14 +11,6 @@
 
 
 #define TLSLSH   M(TIL_SLASH)
-#define F1_F13   TD(F1F13)
-#define F2_F14   TD(F2F14)
-#define F5_F15   TD(F5F15)
-#define F4_ALTF4 TD(ALTF4)
-#define END_ESC  TD(ENDESC)
-#define SHF6_AF7 TD(F6F7)
-#define F12_RUN  TD(F12ETAPS)
-#define COMMA_TD TD(COMMA)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -26,30 +18,6 @@ enum custom_keycodes {
   VRSN,
   RGB_SLD,
 };
-
-//Tap dance enums
-enum {
-  F12TAP = 0,
-  F12ETAPS,
-  CALCCOMP,
-  REFRESH, //send R, or Control+R if double tapped.
-  ENDESC,
-  XESC, //'quad function'. x, control, escape, alt
-  ALY2, //'quad function': a, Hyper, ctrl+a, layer 2
-  PRLOCK,
-  F6F7, // Shift F6 or Alt F7
-  TABCOMBO,
-  FCTRL,
-  F3D,
-  ALTF4,
-  COMMA,
-  AT,
-  HTAB,
-  F1F13,
-  F2F14,
-  F5F15
-};
-
 
 
 // Custom tapping terms for each key.
@@ -210,8 +178,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                          ________,________,________,
                      
                      ________,________,________,________,________,________,________,
-                     ________,________,LCTL(LGUI(KC_3)),_XXXXXX_,LCTL(LGUI(KC_4)),LCTL(LGUI(KC_5)),________,
-                              ________,LCTL(LGUI(KC_1)),________,LCTL(LGUI(KC_2)),________,________,
+                     ________,________,APP_3   ,_XXXXXX_,APP_4   ,APP_5   ,________,
+                              ________,APP_1   ,________,APP_2   ,________,________,
                      ________,________,________,________,________,________,________,
                                        ________,________,________,________,________,
                                        
