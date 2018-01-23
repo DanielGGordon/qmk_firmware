@@ -65,6 +65,9 @@
 
 #define APP_SW_I LT(_APPSWITCH,KC_I)
 
+#define TLSLSH   M(TIL_SLASH)
+#define TILDA_3x M(TILD3)
+
 
 // Double Modifier ONLY hold
 #define ALT_SHFT LSFT(KC_LALT)
@@ -196,6 +199,7 @@ void bt_reset (qk_tap_dance_state_t *state, void *user_data);
 // Macro Declarations
 enum {
   INFOQM,
+  MODRESET,
   TIL_SLASH,
   DEREF,
   EQRIGHT,

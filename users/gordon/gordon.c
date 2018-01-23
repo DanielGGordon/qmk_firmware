@@ -15,9 +15,6 @@ const char secret[][64] = {
 };
 #endif
 
-
-
-
 void register_hyper (void) { //Helper function to invoke Hyper
   register_code (KC_LSFT);
   register_code (KC_LCTL); 
@@ -261,6 +258,24 @@ void bt_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   S1_state.state = 0;
 }
+
+// Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // simple tap dance
+  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),  
+  [REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
+  [ENDESC] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
+  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
+  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
+  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
+  [F1F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
+  [F2F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
+  [F5F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
+  [TABCOMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
+  [F3D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bt_finished, bt_reset),
+  [COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
+  [HTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,h_finished, h_reset)
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

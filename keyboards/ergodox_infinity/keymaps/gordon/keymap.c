@@ -10,8 +10,6 @@
 #include "keymap_nordic.h"
 
 
-#define TLSLSH   M(TIL_SLASH)
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -31,23 +29,7 @@ enum custom_keycodes {
 } */
 
             
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // simple tap dance
-  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),  
-  [REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
-  [ENDESC] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
-  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
-  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
-  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
-  [F1F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
-  [F2F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
-  [F5F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
-  [TABCOMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
-  [F3D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bt_finished, bt_reset),
-  [COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
-  [HTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,h_finished, h_reset)
-};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -56,19 +38,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = KEYMAP(
 
     SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
-    KC_ESC  , KC_Q    ,  CTR_SH_W,     NAV_E, CTR_AL_R,      KC_T, PRINTSCR,
+    KC_ESC  , KC_Q    ,  CTR_SH_W,     NAV_E,     KC_R,      KC_T, PRINTSCR,
     KC_TAB  , KC_A    ,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
-    ALT_SHFT, CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, TT(_MOUSE),
+    ________, CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, TT(_MOUSE),
     KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
                                     
                                               KC_INSERT,  KC_DELETE, 
-                                                           ALT_HOME,
-                                    KC_LSHIFT, SYMB_BSP,    END_ESC,
+                                                          ALT_HOME ,
+                                    KC_LSHIFT, SYMB_BSP,  KC_END   ,
 
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
-                ________,     KC_Y,     KC_U, APP_SW_I,     KC_O,      KC_P,  ________,
-                             WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS,  ________,
-                 KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TD(TABCOMBO),
+                CALTDEL,     KC_Y,     KC_U, APP_SW_I,     KC_O,      KC_P,  ________,
+                             WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS,  KC_END  ,
+                 KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, ________,
                                        KC_UP,  KC_DOWN,   KC_ESC,    KC_TILD,    KC_UNDS,
 
   KC_ESCAPE,  KC_DELETE,
@@ -79,30 +61,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************SYMBOLS LAYER**************************
   [_SYMBOLS] = KEYMAP(
     ________, ________, ________, ________, ________, ________,  ________,
-    ________,   TLSLSH,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
-    ________,  KC_EXLM,  KC_PIPE,  KC_LPRN,  KC_RPRN, M(DEREF),
+    ________, M(DEREF),    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
+    ________,  KC_EXLM,  KC_HASH,  KC_LPRN,  KC_RPRN,  ________,
     ________,KC_DOLLAR,  KC_PERC, LSQUIGLY, RSQUIGLY, ________,  ________,
-    ________,  M(TICK3),  ________,  ________,  ________,  
+    ________,TILDA_3x ,  ________,  ________,  ________,  
 
                                     ________,________,
                                              ________,
-                           ________,________,________,
+                           ________,_XXXXXX_,________,
 
 
                   ________, ________, ________, ________, ________, ________, NUMLOCK,
                   ________,   TLSLSH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
                           M(EQRIGHT),  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
-                  ________,  KC_PIPE, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
-                  ________,________,________,M(TILD3),________,
+                  ________, ________, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
+                  ________,________ ,________,M(TILD3),________,
                                                               ________,________,
                                                                        ________,
-                                                     ________,________,________),
+                                                     ________,________,_XXXXXX_),
   
   //**************************MOUSE MOVEMENT LAYER**************************
-  [_MOUSE] = KEYMAP(RESET,________,________,________,________,________,________,
-                    RESET,________,________,KC_MS_UP,________,KC_MS_WH_UP,CALTDEL,
+  [_MOUSE] = KEYMAP(________,________,________,________,________,________,MODRESET,
+                    RESET,KC_SECRET_5,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,CALTDEL,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
-                    KC_SECRET_1,________,HYPR(KC_F13),________,HYPR(KC_F14),KC_SECRET_2,________,
+                    KC_SECRET_1,KC_SECRET_3,HYPR(KC_F13),_XXXXXX_,HYPR(KC_F14),KC_SECRET_2,________,
                     ________,________,HYPR(KC_F15),KC_MS_WH_LEFT,KC_MS_WH_RIGHT,
                     
                                                        ________,________,
@@ -112,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          
                     ________,________,________,________,________,________,________,
                     KC_MS_WH_UP,________,________,KC_UP,________,________,________,
-                    ________,KC_LEFT,KC_DOWN,KC_RIGHT,________,________,
+                    ________,KC_LEFT,KC_DOWN,KC_RIGHT,_XXXXXX_,________,
                     KC_MS_WH_DOWN,________,KC_PGUP,KC_PGDOWN,KC_MEDIA_NEXT_TRACK,________,________,
                     KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_MUTE,KC_MEDIA_PLAY_PAUSE,________,
                     ________,________,
@@ -125,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************WINDOWS NAVIGATION LAYER**************************
 
   [_NAV] = KEYMAP(________,________,________,________,________,________,________,
-                  ________,________,SNAPLEFT,________,SNAPRGHT,LALT(KC_LEFT),________,
-                  ________,LCTL(KC_W),PREVTAB,LGUI(KC_D),NEXTTAB,________,
-                  ________,________,WORKLEFT,________,WORKRIGHT,________,________,
+                  ________,________,SNAPLEFT,_XXXXXX_,SNAPRGHT,________,________,
+                  ________,KC_WWW_BACK,PREVTAB,________,NEXTTAB,SNAPUP,
+                  ________,________,WORKLEFT,________,WORKRIGHT,SNAPDOWN,________,
                   ________,________,________,________,________,
                   
                   ________,________,
@@ -149,36 +131,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //****************************NUMPAD LAYER****************************
   [_NUMPAD] = KEYMAP(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
-                     ________,________,________,________,________,________,
+                     ________,________,KC_DOT,_XXXXXX_, KC_ESC ,________,
                      ________,________,________,________,________,________,________,
                      ________,________,________,________,________,
                      
                      ________,________,
                      ________,
-                     ________,________,________,
+                     KC_PLUS,KC_MINUS,________,
                      
                      BL_TOGG ,BL_STEP ,________,________,________,________,________,
                      ________,________,KC_7    ,KC_8    ,KC_9    ,________,________,
                               ________,KC_4    ,KC_5    ,KC_6    ,________,________,
-                     ________,________,KC_1    ,KC_2    ,KC_3    ,________,________,
-                                       KC_0    ,KC_0 ,  KC_DOT   ,________,________,
+                     ________,KC_DOT,KC_1    ,KC_2    ,KC_3    ,________,________,
+                                       KC_0    ,KC_DOT ,  KC_DOT   ,________,________,
                                        
                                        ________,________,
                                        ________,
                                        ________,________,KC_0),
 
+  //****************************APP SWITCH LAYER****************************
   [_APPSWITCH] = KEYMAP(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
-                     ________,________,LCTL(LGUI(KC_6)),LCTL(LGUI(KC_7)),LCTL(LGUI(KC_8)),________,
+                     ________,APP_5,APP_6   ,APP_7   ,APP_8   ,________,
                      ________,________,________,________,________,________,________,
                      ________,________,________,________,________,
                      
                                                                   ________,________,
                                                                            ________,
-                                                         ________,________,________,
+                                                         KC_PLUS,________,________,
                      
                      ________,________,________,________,________,________,________,
-                     ________,________,APP_3   ,_XXXXXX_,APP_4   ,APP_5   ,________,
+                     ________,________,APP_3   ,_XXXXXX_,APP_4   ,________   ,________,
                               ________,APP_1   ,________,APP_2   ,________,________,
                      ________,________,________,________,________,________,________,
                                        ________,________,________,________,________,
@@ -190,7 +173,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_TEXTNAV] = KEYMAP(________,________,________,________,________,________,________,
                       ________,MEH(KC_Q),LSFT(KC_ESCAPE),MEH(KC_D),MEH(KC_2),LALT(LSFT(KC_UP)),________,
                       ________,LALT(KC_F7),LCTL(KC_LEFT),LCTL(KC_B),LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
-                      ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,________,________,________,________,________,________,________,________,________,LCTL(KC_DELETE),________,LALT(LSFT(KC_F9)),________,________,________,________,________,________,________,MEH(KC_5),LALT(LSFT(KC_Z)),________,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________)
+                      ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,________,
+                      ________,________,________,________,________,________,________,________,________,________,
+                      LALT(LSFT(KC_F9)),________,________,________,________,________,________,________,MEH(KC_5),LALT(LSFT(KC_Z)),
+                      _XXXXXX_,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),
+                      LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,
+                      ________,________,________,________,________,________,________,________,________,________)
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -203,6 +191,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case INFOQM: {
           if (record->event.pressed) {
             SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+          }
+          break;
+        }
+
+        case MODRESET: {//For clearing stuck modifiers
+          if (record->event.pressed) {
+            clear_mods();
           }
           break;
         }
