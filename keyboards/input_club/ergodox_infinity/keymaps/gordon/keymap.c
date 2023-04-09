@@ -112,12 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************SYMBOLS LAYER**************************
   [_SYMBOLS] = LAYOUT_ergodox(
     RESET, ________, ________, ________, ________, ________,  ________,
-    ________, DEREF   ,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
-    ________,  KC_EXLM,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_MINUS,
+    ________, DEREF   ,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  CG_TOGG,
+    RESET,  KC_EXLM,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_MINUS,
     ________,KC_DOLLAR,  KC_PERC, KC_LBRACKET, KC_RBRACKET, KC_GRAVE,  TIL_SLASH,
     COMMA_TD,TICK3    ,  _XXXXXX_,  KC_LT,  KC_GT,
 
-                                    ________,________,
+                                    CG_SWAP,CG_NORM,
                                              ________,
                            ________,_XXXXXX_,________,
 
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************MOUSE MOVEMENT LAYER**************************
   // LAYER #2
   [_MOUSE] = LAYOUT_ergodox(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
-                    RESET,________,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,________,
+                    RESET,________,________,KC_MS_UP,KC_SECRET_5,KC_MS_WH_UP,________,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
                     ________,KC_SECRET_4,KC_SECRET_3,_XXXXXX_,KC_SECRET_2,KC_SECRET_1,_XXXXXX_,
                     ________,________,HYPR(KC_F15),KC_MS_WH_LEFT,KC_MS_WH_RIGHT,
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                   ________,________,SNAPLEFT,_XXXXXX_,SNAPRGHT,________,________,
                   ________,KC_WWW_BACK,PREVTAB,________,NEXTTAB,SNAPUP,
-                  ________,________,WORKLEFT,________,WORKRIGHT,SNAPDOWN,________,
+                  ________,________,DESKLEFT,________,DESKRIGHT,SNAPDOWN,________,
                   ________,________,________,KC_A,KC_B,
 
                   ________,________,
@@ -245,14 +245,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
   [_TEXTNAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                       ________,________,KC_HOME,________,KC_END,________,________,
-                      ________,________,LCTL(KC_LEFT),________,LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
+                      ________,________,LEFTWORD,________,RIGHTWORD,LALT(LSFT(KC_DOWN)),
                       ________,________,LCTL(KC_HOME),________,LCTL(KC_END),LCTL(KC_END),________,
                       ________,________,________,________,________,
 
                       ________,________,________,________,________,________,
 
                       ________,________,________,________,________,________,________,________,________,LSFT(KC_HOME),
-                      ________,LSFT(KC_END),________,________,________,LCTL(LSFT(KC_LEFT)),________,LCTL(LSFT(KC_RIGHT)),
+                      ________,LSFT(KC_END),________,________,________,HLLEFTWORD,________,HLRIGHTWORD,
                       ________,________,________,________,LCTL(LSFT(KC_HOME)),________,LCTL(LSFT(KC_END)),________,________,________,
                       ________,________,________,________,________,________,________,________,________,_XXXXXX_),
   //LAYER #8
@@ -441,6 +441,10 @@ void matrix_scan_user(void) {
 
 
 
+    if (keymap_config.swap_lctl_lgui) {
+      st7565_write("ON MAC", false);
+    }
+
     uint8_t layer = biton32(layer_state);
 
 
@@ -467,22 +471,19 @@ void matrix_scan_user(void) {
     
 
 
-
-
     switch (layer)
     {
     case _SYMBOLS:
-      ergodox_right_led_1_on();
+      ergodox_infinity_lcd_color(220*131, 20*131, 60); //crimson red;
       break;
     case _MOUSE:
-      ergodox_right_led_2_on();
+      ergodox_infinity_lcd_color(0, 32767, 16384); //a nice light green
       break;
     case _NUMPAD:
-      ergodox_right_led_3_on();
+      ergodox_infinity_lcd_color(0, 0, 32767); //blue
       break;
     case _NAV:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
+      ergodox_infinity_lcd_color(32767, 32767, 0); //yellow
       break;
     case _MACROS:
       //layer unused right now
@@ -491,41 +492,37 @@ void matrix_scan_user(void) {
       //layer unused right nowex
       break;
     case _APPSWITCH:
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();
+      ergodox_infinity_lcd_color(255*131, 215*131, 0);
       break;
     case _ONESHOT:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();
+      ergodox_infinity_lcd_color(75*131, 0*131, 130*131); //indigo aka 'dark purple'
       break;
     case _TEXTNAV:
-      ergodox_right_led_1_on();
-      ergodox_right_led_3_on();
+      ergodox_infinity_lcd_color(32767, 0, 32767); //magenta
       break;
     case _QWERTY_KIDS:
-      ergodox_right_led_2_on(); 
-      ergodox_right_led_2_on(); 
+      ergodox_infinity_lcd_color(255*131, 215*131, 0); //orange
       break;
     case _STREET_FIGHTER:
       ergodox_right_led_2_on();
       ergodox_right_led_3_on();
       break;
     case _WINDOWS_NAV:
-      ergodox_right_led_3_on();
+      ergodox_infinity_lcd_color(0, 32767, 32767); //teal
       // ergodox_right_led_4_on();      
       break;
     case _TEXT_MACROS:
       ergodox_right_led_1_on();  
       break;
     case _EXTRA1:
-      ergodox_right_led_2_on();  
+      ergodox_infinity_lcd_color(10000, 25000, 32767); //kind of light sky blue 
       break;
     case _EXTRA2:
       ergodox_right_led_3_on(); 
       break;  
       // ergodox_right_led_dan1_on();
     default:
+      ergodox_infinity_lcd_color(32767, 32767, 32767);
       break;
     }
 };

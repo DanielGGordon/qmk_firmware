@@ -34,3 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_COUNT 4
 #define EXTRA_LONG_COMBOS
 
+#define SPLIT_LAYER_STATE_ENABLE

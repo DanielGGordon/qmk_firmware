@@ -130,6 +130,37 @@ void unregister_alt_shift (void) {
   unregister_code (KC_LALT);
 }
 
+void unregister_home (void) {
+  if (keymap_config.swap_lctl_lgui)  {
+      unregister_code(KC_LGUI); unregister_code(KC_LEFT);
+  } else {
+      unregister_code(KC_HOME);
+  }
+}
+
+void unregister_end (void) {
+  if (keymap_config.swap_lctl_lgui)  {
+      unregister_code(KC_LGUI); unregister_code(KC_RIGHT);
+  } else {
+      unregister_code(KC_END);
+  }
+}
+
+void register_home (void) {
+  if (keymap_config.swap_lctl_lgui)  {
+      register_code(KC_LGUI); register_code(KC_LEFT);
+  } else {
+      register_code(KC_HOME);
+  }
+}
+
+void register_end (void) {
+  if (keymap_config.swap_lctl_lgui)  {
+      register_code(KC_LGUI); register_code(KC_RIGHT);
+  } else {
+      register_code(KC_END);
+  }
+}
 
 
 // To activate SINGLE_HOLD, you will need to hold for 200ms first.
@@ -375,6 +406,30 @@ void f17_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 
 
+//HOME/END tap dance for windows or mac
+
+static xtap home_end_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void home_end_finished (qk_tap_dance_state_t *state, void *user_data) {
+  home_end_state.state = cur_dance(state);
+  switch (home_end_state.state) {
+    case SINGLE_TAP: register_end(); break;  //send MEH(F21)
+    case DOUBLE_TAP: register_home(); break;
+  }
+}
+
+void home_end_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (home_end_state.state) { //unregister code or go back to win-nav layer
+    case SINGLE_TAP: unregister_end(); break; //unregister tab
+    case DOUBLE_TAP: unregister_home(); break;
+  }
+  home_end_state.state = 0;
+}
+
+
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   // simple tap dance
@@ -382,7 +437,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [REFRESH]  = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
   [ENDESC]   = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
   [Q_ESCAPE] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-  [ENDHOME]  = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME),
+  [ENDHOME]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, home_end_finished, home_end_reset),
   [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
   [ALTF4]    = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
   [F6F7]     = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
@@ -414,29 +469,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_string(secrets[keycode - KC_SECRET_1]);
           // clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
           return true; break;
-      case UP_ENTER_RESET:
-          SEND_STRING("make ergodox_infinity:gordon:dfu-util");
-          register_code(KC_ENTER);
-          unregister_code(KC_ENTER);
-          reset_keyboard();
-          return false; break;
 
       case TIL_SLASH:
           SEND_STRING ("~/.");
           return false; break;
 
-      case DBMS_OUT:
-          SEND_STRING ("dbms_output.put_line('');");
-          SEND_STRING (SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
-          return false; break;
       case DIE_1000X_RIGHT:
           SEND_STRING (SS_TAP(X_G) SS_TAP(X_G) SS_TAP(X_RIGHT) SS_TAP(X_B) SS_TAP(X_J));
           return false; break;
       case DIE_1000X_LEFT:
           SEND_STRING (SS_TAP(X_GRAVE) SS_TAP(X_G) SS_TAP(X_LEFT) SS_TAP(X_B) SS_TAP(X_J));
-          return false; break;
-      case ID_MAN_IP:
-          SEND_STRING ("http://dev-1967110238.us-east-1.elb.amazonaws.com");
           return false; break;
 
       case MODRESET:
@@ -451,20 +493,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING ("->");
           return false; break;
 
+      case LEFTWORD:
+          !keymap_config.swap_lctl_lgui ? tap_code16(C(KC_LEFT)) : tap_code16(A(KC_LEFT));
+          return false; break;
+
+      case RIGHTWORD:
+          !keymap_config.swap_lctl_lgui ? tap_code16(C(KC_RIGHT)) : tap_code16(A(KC_RIGHT));
+          return false; break;    
+
+      case HLLEFTWORD:
+          !keymap_config.swap_lctl_lgui ? tap_code16(C(S(KC_LEFT))) : tap_code16(A(S(KC_LEFT)));
+          return false; break;
+
+      case HLRIGHTWORD:
+          !keymap_config.swap_lctl_lgui ? tap_code16(C(S(KC_RIGHT))) : tap_code16(A(S(KC_RIGHT)));
+          return false; break;    
+
+      case DESKRIGHT:
+          keymap_config.swap_lctl_lgui ? tap_code16(C(KC_RIGHT)) : tap_code16(C(G(KC_RIGHT)));
+          return false; break;     
+
+      case DESKLEFT:
+          keymap_config.swap_lctl_lgui ? tap_code16(C(KC_LEFT)) : tap_code16(C(G(KC_LEFT)));
+          return false; break;  
+
+      case HOME:
+          keymap_config.swap_lctl_lgui ? tap_code16(G(KC_LEFT)) : tap_code16(KC_HOME);
+          return false; break; 
+      
+      case END:
+          keymap_config.swap_lctl_lgui ? tap_code16(G(KC_RIGHT)) : tap_code16(KC_END);
+          return false; break; 
+
+
       case EQRIGHT:
           SEND_STRING ("=>");
           return false; break;
 
       case TICK3:
           SEND_STRING ("```");
-          return false; break;
-
-      case SPRK_TCK:
-          SEND_STRING ("```");
-          SEND_STRING (SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_UP(X_LSHIFT));
-          SEND_STRING (SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_UP(X_LSHIFT));
-          SEND_STRING ("```");
-          SEND_STRING (SS_TAP(X_UP));
           return false; break;
 
       case TILD3:

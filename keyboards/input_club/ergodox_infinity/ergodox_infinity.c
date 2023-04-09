@@ -333,6 +333,8 @@ __attribute__((weak)) void st7565_task_user(void) {
         st7565_write_ln(layer_buffer, false);
         st7565_write_ln("  1=On    D=Default", false);
     } else {
+        // led_t leds = host_keyboard_led_state();
+        st7565_advance_page(true);
         // Draw logo
         static const char qmk_logo[] = {
             0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -341,7 +343,7 @@ __attribute__((weak)) void st7565_task_user(void) {
         };
 
         st7565_write(qmk_logo, false);
-        st7565_write("  Infinity  Ergodox  ", false);
+        st7565_write("Dan's Ergodox", false);
     }
 }
 #endif

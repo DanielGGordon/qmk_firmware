@@ -3,8 +3,9 @@ COMBO_ENABLE = yes
 LEADER_ENABLE = yes
 
 # two lines below are to re-enable the LED screens
-ST7565_ENABLE = no
+ST7565_ENABLE = yes
 VISUALIZER = yes
+
 VISUALIZER_ENABLE = yes
 LCD_ENABLE = yes
 LCD_BACKLIGHT_ENABLE = yes
