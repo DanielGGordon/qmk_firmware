@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_ergodox(
 
     SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
-    F13SNAP  , Q_ESC   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
+    F13SNAP  , KC_Q   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
     KC_TAB  , KC_A    ,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
     OSL(_ONESHOT), CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, KC_LEAD,
     KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, KC_CALCULATOR,
                 CALTDEL ,    KC_Y,      KC_U,     WINDOW_I,     KC_O,      KC_P,  MODRESET,
                              WIN_H,   CTRL_J, APP_SW_K,    MEH_L,  COL_MOUS, END_HOME,
-             OSL(_ONESHOT),     KC_N,  KC_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TT(_QWERTY_KIDS),
+             OSL(_ONESHOT),     KC_N,  ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TT(_QWERTY_KIDS),
                                        KC_UP,  KC_DOWN,KC_DELETE,    KC_TILD,    KC_UNDS,
 
   TT(_STREET_FIGHTER),  ________,
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                   ________, ________, ________, ________, ________, ________, NUMLOCK,
                   ________,TIL_SLASH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
-                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
+                             KC_TILD,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
                   ________, KC_M, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
                   ________,________ ,________,TILD3,________,
                                                               ________,________,
