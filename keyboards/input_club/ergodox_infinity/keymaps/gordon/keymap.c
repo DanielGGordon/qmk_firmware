@@ -89,12 +89,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_ergodox(
 
     SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
-    F13SNAP  , KC_Q   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
+    TG(_NUMPAD)  , KC_Q   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
     KC_TAB  , KC_A    ,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
     OSL(_ONESHOT), CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, KC_LEAD,
     KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
 
-                                              LSFT(KC_INSERT),  TT(_WINDOWS_NAV),
+                                              LSFT(KC_INSERT),  ________,
                                                           ________ ,
                                     KC_LSHIFT, SYMB_BSP,  LT(_WINDOWS_NAV, KC_INSERT)   ,
 
@@ -104,12 +104,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              OSL(_ONESHOT),     KC_N,  ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TT(_QWERTY_KIDS),
                                        KC_UP,  KC_DOWN,KC_DELETE,    KC_TILD,    KC_UNDS,
 
-  TT(_STREET_FIGHTER),  ________,
+  ________,  ________,
          KC_PGUP,
   KC_PGDOWN, LT(_NAV,KC_ENTER), SPAC_TXT),
 
 
-  //**************************SYMBOLS LAYER**************************
+  //**************************SYMBOLS LAYER - LAYER 1**************************
   [_SYMBOLS] = LAYOUT_ergodox(
     RESET, ________, ________, ________, ________, ________,  ________,
     ________, DEREF   ,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  CG_TOGG,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                        ________,
                                                      ________,________,_XXXXXX_),
 
-  //**************************MOUSE MOVEMENT LAYER**************************
+  //**************************MOUSE MOVEMENT LAYER - LAYER 2**************************
   // LAYER #2
   [_MOUSE] = LAYOUT_ergodox(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
                     RESET,________,________,KC_MS_UP,KC_SECRET_5,KC_MS_WH_UP,________,
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-  //**************************WINDOWS NAVIGATION LAYER**************************
+  //**************************WINDOWS NAVIGATION LAYER - LAYER 3**************************
 
   [_NAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                   ________,________,SNAPLEFT,_XXXXXX_,SNAPRGHT,________,________,
@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ________,
          ________,________,________),
 
-  //****************************NUMPAD LAYER****************************
+  //****************************NUMPAD LAYER - LAYER 4****************************
   [_NUMPAD] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
                      ________,KC_DOT  ,KC_SPACE,_XXXXXX_, KC_ESC ,________,
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        ________,
                                        ________,________,KC_0),
 
-  //****************************APP SWITCH LAYER****************************
+  //****************************APP SWITCH LAYER - LAYER 5****************************
   [_APPSWITCH] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                         ________,________   ,  ________ , ________  ,________   ,________,________,
                         ________,APP_5,APP_6,APP_7,APP_8,________,
@@ -223,6 +223,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     ________,________,________),
 
 
+
+//********************************** LAYER 6 ************************************************
   [_ONESHOT] = LAYOUT_ergodox(  UP_ENTER_RESET , ________, ________, ________, ________, ________, ________,
                         ________, ________, ________, KC_UP   , ________, ________, ________,
                         ________, ________, KC_LEFT , KC_DOWN , KC_RIGHT, ________,
@@ -242,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ________, ________,
                         ________,
                         ________, ________, ________),
-  //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
+  //****************************TEXT/INTELLIJ NAVIGATION LAYER - LAYER 7****************************
   [_TEXTNAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                       ________,________,KC_HOME,________,KC_END,________,________,
                       ________,________,LEFTWORD,________,RIGHTWORD,LALT(LSFT(KC_DOWN)),
